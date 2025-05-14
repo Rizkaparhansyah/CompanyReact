@@ -1,0 +1,149 @@
+body{
+    background-color:rgb(235, 235, 235);
+}
+
+.cont{
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.cont  .__card-1{
+    width: 35em;
+    height: 10em;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 15px;
+    gap: 30px;
+}
+.cont  .__card-1 img{
+    padding: 20px;
+    width: 8em;
+    height: 8em;
+    border-radius: 25px;
+    object-fit: cover;
+}
+
+.cont .__card-2{
+    width: 35em;
+    border-radius: 15px;
+    background-color:  #fff;
+    
+}
+.desk{
+    font-weight: 600;
+    padding: 10px;
+}
+.grid-text{
+    display: grid;
+}
+ .btn-price{
+    width: 25em;
+    border-radius: 8px;
+    border: 2px solid rgb(165, 165, 167);
+    display: grid;
+    padding: 25px;
+}
+ .btn-price-solo{
+    width: 27em;
+    height: 50px;
+    border-radius: 8px;
+    border: 0.5px solid rgb(165, 165, 167);
+    display: grid;
+}
+
+.pilih-donasi{
+    align-items: center;
+    row-gap: 15px;
+    display: flex;
+    flex-direction: column ;
+}
+.nominal{
+    font-weight: 500;
+    background-color: #fff;
+}
+.minimal{
+    margin-top: 20px;
+    padding: 8px 8px 8px 15px;
+    width: auto;
+    height: 30px;
+    background-color: #ccf7ff;
+    border-radius: 8px;
+    font-weight: 500;
+    opacity: 0.4;
+}
+.qrcode{
+    padding: 5px;
+    border: 5px solid black;
+  }
+  .scan{
+    margin-bottom: -5px;
+    width: 180px;
+    border: 5px solid black;
+    font-weight: 600;
+    text-align: center;
+  }
+  .payment{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+.active{
+    border: 2px solid rgb(42, 101, 219);
+}
+input:hover{
+    outline: 1px solid rgb(42, 101, 219);
+}
+input:focus{
+    outline: 2px solid rgb(42, 101, 219);
+    
+}
+.btn-price-solo:hover{
+    border: 1px solid rgb(42, 101, 219);
+}
+.btn-price-solo:focus{
+    outline: 1px solid rgb(42, 101, 219);
+}
+.button-bayar{
+    margin-bottom: 25px;
+    width: 28em;
+    height: 50px;
+    border-radius: 8px;
+    background-color:  rgb(42, 101, 219);
+    color: #fff;
+    border: none;
+    animation: .4s ease-in-out;
+}
+.button-bayar:hover{
+    transition: .4s;
+    background-color: rgb(57, 73, 144);
+}
+.pilih-donasi input{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: transparent;
+    border: none;
+    padding-left: 15px;
+    width: 27em;
+    height: 50px;
+    border-radius: 8px;
+    border: 0.5px solid rgb(165, 165, 167);
+    display: grid;
+    font-weight: 600;
+}
+.__card-2 .back{
+    padding: 10px 0px 0px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+.__card-2 .back:hover{
+    color: black;
+}
+.text{
+    font-weight: 600;
+}

@@ -1,0 +1,37 @@
+.zakat-bg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    height: 40vh;
+    border-top: 1px solid #c8c8c8;
+    border-bottom: 1px solid #c8c8c8;
+}
+.linkto{
+    text-decoration: none;
+    color: black;
+}
+.card-zakat{
+    border: 0.4px solid rgb(206, 206, 206);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 20px;
+    width: 9em;
+    height: 9em;
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
+    box-shadow: 7px 7px 8px #c8c8c8;
+    transition: 0.3s;
+}
+.logo{
+    width: 53%;
+    object-fit: cover;
+  }
+.category{
+    font-weight: 700;
+}
+.card-zakat:hover{
+    box-shadow: none;
+}
