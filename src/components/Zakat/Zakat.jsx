@@ -13,28 +13,13 @@ const Zakat = () => {
   return (
     <div className="zakat-bg" id="category">
       {/* {data && data.map((datas) =>  */}
+      
       <Link to="/zis" className="linkto">
         <div className="card-zakat">
-          <img src={hand} className="logo" alt="" srcSet="" />
-          <div className="category">DONASI</div>
-        </div>
-      </Link>
-      <Link to="/zis" className="linkto">
-        <div className="card-zakat">
-          <img src={masjid} className="logo" alt="" srcSet="" />
-          <div className="category">ZAKAT</div>
-        </div>
-      </Link>
-      <Link to="/zis" className="linkto">
-        <div className="card-zakat">
-          <img src={kotakamal} className="logo" alt="" srcSet="" />
-          <div className="category">INFAK</div>
-        </div>
-      </Link>
-      <Link to="/zis" className="linkto">
-        <div className="card-zakat">
-          <img src={galangdana} className="logo" alt="" srcSet="" />
-          <div className="category">GALANG DANA</div>
+          <div className="isi">
+            <img src={masjid} className="logo" alt="" srcSet="" />
+            <div className="category">ZAKAT</div>
+          </div>
         </div>
       </Link>
 

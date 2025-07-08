@@ -75,7 +75,7 @@ const FormZakat = (props) => {
       const csrf = await http.get("/sanctum/csrf-cookie");
       console.log("csrf =", csrf);
       await http
-        .post("zakatAjax", values)
+        .post("http://localhost:8000/api/zakatAjax", values)
         .then(
           (response) => console.log(response),
           swal({
@@ -301,7 +301,7 @@ const FormZakat = (props) => {
               </Modal>
             </div>
           </div>
-          <div className="all ml">Terkumpul : Rp. 32.233.322</div>
+          {/* <div className="all ml">Terkumpul : Rp. 32.233.322</div> */}
           <button className="bayar-zakat ml" onClick={handleError} id="bayar">
             BAYAR ZAKAT
           </button>

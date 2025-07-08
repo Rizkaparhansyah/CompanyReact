@@ -1,9 +1,10 @@
 .zakat-bg{
     display: flex;
+    /* background-color: blue; */
     justify-content: center;
     align-items: center;
     gap: 40px;
-    height: 40vh;
+    height: 80vh;
     border-top: 1px solid #c8c8c8;
     border-bottom: 1px solid #c8c8c8;
 }
@@ -14,20 +15,30 @@
 .card-zakat{
     border: 0.4px solid rgb(206, 206, 206);
     display: flex;
+    /* background-color: red; */
     justify-content: center;
     align-items: center;
     flex-direction: column;
     row-gap: 20px;
-    width: 9em;
-    height: 9em;
+    width: 90vw;
+    height: 15em;
     background-color: rgb(255, 255, 255);
     border-radius: 15px;
     box-shadow: 7px 7px 8px #c8c8c8;
     transition: 0.3s;
 }
 .logo{
-    width: 53%;
+    height: 150px;
     object-fit: cover;
+    margin-bottom: 10;
+  }
+.isi{ 
+    display: flex;
+    /* background-color: red; */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 230px;
   }
 .category{
     font-weight: 700;

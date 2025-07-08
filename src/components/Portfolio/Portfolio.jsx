@@ -3,9 +3,6 @@ import "./Portfolio.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Sidebar from "../../img/BT-LOGO.png";
-import Ecommerce from "../../img/ecommerce.png";
-import HOC from "../../img/hoc.png";
-import MusicApp from "../../img/musicapp.png";
 import { themeContext } from "../../Context";
 import axios from "axios";
 
@@ -39,13 +36,13 @@ const Portfolio = () => {
         grabCursor={true}
         className="portfolio-slider"
       >
-        {berita &&
-          berita.map((data) => (
-            <SwiperSlide>
-              <img src={Sidebar} alt="Image" />
-              <p className="berita">{data.description}</p>
-            </SwiperSlide>
-          ))}
+        {berita.map((data, index) => (
+          <SwiperSlide key={index}>
+            <img src={`http://localhost:8000/storage/images/${encodeURI(data.image)}`} alt="Image" />
+            <p className="berita">{data.description}</p>
+          </SwiperSlide>
+        ))}
+
       </Swiper>
     </div>
   );

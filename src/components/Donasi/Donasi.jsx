@@ -60,7 +60,7 @@ const Donasi = () => {
       const put = parseInt(test.terkumpul) + parseInt(inp);
       await http.get("/sanctum/csrf-cookie");
       await http
-        .put("campignAjax/" + newId, {
+        .put("http://localhost:8000/api/campignAjax/" + newId, {
           image: test.image,
           keluhan: test.keluhan,
           perusahaan: test.perusahaan,

@@ -60,7 +60,7 @@ const Campign = () => {
               <div class="__cont" key={datas.id}>
                 <div class="__card">
                   <div class="head-card">
-                    <img src={img} alt="" />
+                    <img src={`http://localhost:8000/storage/images/${encodeURI(datas.image)}`} alt="" />
                   </div>
                   <div class="body-card">
                     <h1>{datas.keluhan}</h1>

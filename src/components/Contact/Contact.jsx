@@ -38,7 +38,7 @@ const Contact = () => {
       const csrf = await http.get("/sanctum/csrf-cookie");
       console.log("csrf =", csrf);
       http
-        .post("messageAjax", values)
+        .post("http://localhost:8000/api/messageAjax", values)
         .then(
           (response) =>
             swal({

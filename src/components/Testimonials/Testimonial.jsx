@@ -62,16 +62,16 @@ const Testimonial = () => {
       </div>
       <div className="container">
         <div className="container1">
-          <img src={profilePic1} className="sec1" alt="" srcSet="" />
+          <img src={`http://localhost:8000/storage/images/${encodeURI(inspirasi?.image_inspirasi)}`} className="sec1" alt="" srcSet="" />
           <div className="sec2">
             <p>{inspirasi?.description_inspirasi}</p>
           </div>
         </div>
         <div className="container2">
           <div className="container123">
-            <img src={profilePic2} className="sec10" />
-            <img src={profilePic3} className="sec20" />
-            <img src={profilePic4} className="sec30" />
+            <img src={`http://localhost:8000/storage/images/${encodeURI(inspirasi1?.image_inspirasi)}`} className="sec10" />
+            <img src={`http://localhost:8000/storage/images/${encodeURI(inspirasi2?.image_inspirasi)}`} className="sec20" />
+            <img src={`http://localhost:8000/storage/images/${encodeURI(inspirasi3?.image_inspirasi)}`} className="sec30" />
 
             <div className="sec40">
               <p>{inspirasi1?.description_inspirasi}</p>
