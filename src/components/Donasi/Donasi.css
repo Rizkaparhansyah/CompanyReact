@@ -66,6 +66,11 @@ body{
     font-weight: 500;
     background-color: #fff;
 }
+.nominal:focus{
+    outline: 2px solid rgb(42, 101, 219);
+    background-color: rgb(42, 101, 219);
+    color: #fff;
+}
 .minimal{
     margin-top: 20px;
     padding: 8px 8px 8px 15px;

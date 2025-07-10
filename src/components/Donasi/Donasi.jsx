@@ -1,6 +1,6 @@
 import "../Donasi/Donasi.css";
 import img from "../../img/BT-LOGO.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useFormik } from "formik";
 import { Link, Redirect } from "react-router-dom";
@@ -8,7 +8,9 @@ import swal from "sweetalert";
 import { QRCodeCanvas } from "qrcode.react";
 
 const Donasi = () => {
+  const [trigger, setTrigger] = useState(false);
   const [inp, setInp] = useState();
+  const [name, handleName] = useState("Anonymouse");
   // get id
   const sId = window.location.pathname;
   let newId = sId.split("/")[2];
@@ -16,83 +18,116 @@ const Donasi = () => {
   const [test, setTest] = useState();
 
   // get data
-  function onLoad() {
+  
+
+  useEffect(()=>{
     fetch("http://localhost:8000/campignAjax/" + newId + "/edit")
-      .then((response) => response.json())
-      .then((data) => {
-        setTest(data.result);
-        document.getElementById("pro").innerText = JSON.stringify(
-          data.result.keluhan
-        );
-        document.getElementById("tes").innerText = JSON.stringify(
-          "Terkumpul " +
-            ": " +
-            new Intl.NumberFormat("id-ID", {
-              style: "currency",
-              currency: "IDR",
-            }).format(data.result.terkumpul)
-        );
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }
-  // get value
+          .then((response) => response.json())
+          .then((data) => {
+            setTest(data.result);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+  },[trigger])
   function handleData({ target }) {
     setData(target.value);
   }
   function handleInp({ target }) {
     setInp(target.value);
   }
-  // axios create
-  const http = axios.create({
-    baseURL: "http://localhost:8000",
-    headers: {
-      "X-Requested-With": "XMLHttpRequest",
-    },
-    withCredentials: true,
-  });
 
-  //handleSubmit 2
-  const formik = useFormik({
-    onSubmit: async (values) => {
+const checkTransactionStatus = async (data) => {
+  try {
+    const response = await axios.post(`http://localhost:8000/api/payment/notification`, data);
+    setTrigger(response)
+    return response;
+  } catch (error) {
+    console.error("Gagal cek status:", error);
+  }
+};
+
+
+const handlePay = async (e) => {
+    // e.preventDefault();
+
+    try {
       const terkumpul = parseInt(test.terkumpul) + parseInt(datas);
-      const put = parseInt(test.terkumpul) + parseInt(inp);
-      await http.get("/sanctum/csrf-cookie");
-      await http
-        .put("http://localhost:8000/api/campignAjax/" + newId, {
-          image: test.image,
-          keluhan: test.keluhan,
-          perusahaan: test.perusahaan,
-          target_uang: test.target_uang,
+    const put = parseInt(test.terkumpul) + parseInt(isNaN(inp) ?? 0);
+    // console.log('put', name.target.value)
+    // console.log('put', terkumpul)
+    const response = await axios.post("http://localhost:8000/api/payment/", {
           terkumpul: terkumpul ? terkumpul : put,
-          target_waktu: test.target_waktu,
-          waktu_mulai_donasi: test.waktu_mulai_donasi,
-        })
-        .then((response) => {
-          swal({
-            title: "Terimakasih!",
-            text: "Anda telah berdonasi, semoga teganti dengan lebih",
-            icon: "success",
-          }).then((willDelete) => {
-            if (willDelete) {
-              window.location.href = "/donasi/" + newId;
-            }
-          });
-        })
-        .catch((error) => {
-          swal({
-            title: "Gagal!",
-            text: "Maaf terjadi kesalahan!",
-            icon: "warning",
-          }).then((willDelete) => {
-            if (willDelete) {
-              window.location.href = "/donasi/" + newId;
-            }
-          });
+          nominal: parseInt(datas) || parseInt(isNaN(inp) ?? 0),
+          nama_donatur: name,
+          id: newId,
         });
-    },
-  });
+        setTrigger(true)
+        
+        const snapToken = response.data.token;
+        console.log('Response:',snapToken);
+
+      window.snap.pay(snapToken, {
+        onSuccess: function (result) {
+          alert('Pembayaran berhasil!');
+          checkTransactionStatus(result);
+        },
+        onPending: function (result) {
+          alert('Menunggu pembayaran...');
+          checkTransactionStatus(result);
+        },
+        onError: function (result) {
+          alert('Pembayaran gagal!');
+          checkTransactionStatus(result);
+        },
+        onClose: function () {
+          alert('Kamu belum menyelesaikan pembayaran!');
+        }
+      });
+    } catch (error) {
+      console.error('Payment Error:', error);
+      alert('Gagal membuat transaksi.');
+    }
+  };
+
+  // //handleSubmit 2
+  // const formik = useFormik({
+  //   onSubmit: async (values) => {
+  //     const terkumpul = parseInt(test.terkumpul) + parseInt(datas);
+  //     const put = parseInt(test.terkumpul) + parseInt(inp);
+  //     await http.get("/sanctum/csrf-cookie");
+  //     await http
+  //       .put("http://localhost:8000/api/campignAjax/" + newId, {
+  //         terkumpul: terkumpul ? terkumpul : put,
+  //         nama_donatur: name,
+        
+  //       })
+  //       .then((response) => {
+  //         swal({
+  //           title: "Terimakasih!",
+  //           text: "Anda telah berdonasi, semoga teganti dengan lebih",
+  //           icon: "success",
+  //         }).then((willDelete) => {
+  //           console.log('willDelete', willDelete)
+  //           if (willDelete) {
+  //             // window.location.href = "/donasi/" + newId;
+  //           }
+  //         });
+  //       })
+  //       .catch((error) => {
+  //         swal({
+  //           title: "Gagal!",
+  //           text: "Maaf terjadi kesalahan!",
+  //           icon: "warning",
+  //         }).then((willDelete) => {
+  //           console.log('willDelete', willDelete)
+  //           if (willDelete) {
+  //             // window.location.href = "/donasi/" + newId;
+  //           }
+  //         });
+  //       });
+  //   },
+  // });
   // value form
   const donasi = [
     {
@@ -127,20 +162,32 @@ const Donasi = () => {
     />
   );
   return (
-    <div className="cont" onLoad={onLoad}>
+    <div className="cont">
       <div className="__card-1">
         <img src={img} alt="" />
         <div className="grid-text">
-          <div className="desk" id="pro"></div>
-          <div className="desk" id="tes"></div>
+          <div className="desk" id="pro">{test?.keluhan}</div>
+          <div className="desk" id="tes">Terkumpul: {new Intl.NumberFormat("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                }).format(test?.terkumpul)}</div>
         </div>
       </div>
-      <form onSubmit={formik.handleSubmit}>
+      {/* <form onSubmit={formik.handleSubmit}> */}
         <div className="__card-2">
           <Link to="/">
             <div className="back">Kembali</div>
           </Link>
           <div className="pilih-donasi">
+            <p className="text">Nama</p>
+            {/* <div className="btn-price"> */}
+               <input
+                  onChange={e => handleName(e.target.value)}
+                  // type="number"
+                  className="btn-price-solo"
+                  placeholder="Kosongkan bila anonym"
+                />
+            {/* </div> */}
             <p className="text">Nominal Donasi</p>
             <div className="btn-price">
               <div className="nominal">
@@ -172,7 +219,7 @@ const Donasi = () => {
               className="btn-price-solo"
               placeholder="Contoh : Rp 50.000"
             />
-            <img
+            {/* <img
               src="	https://berbagibahagia.org/gambarUpload/gopay.png"
               alt=""
               width={250}
@@ -181,13 +228,14 @@ const Donasi = () => {
             <div className="payment">
               <div className="scan">SCAN HERE</div>
               <div className="qrcode">{qrcode}</div>
-            </div>
-            <button className="button-bayar" type="submit">
+            </div> */}
+            <button className="button-bayar" onClick={ () =>
+handlePay()}>
               DONASI
             </button>
           </div>
         </div>
-      </form>
+      {/* </form> */}
     </div>
   );
 };

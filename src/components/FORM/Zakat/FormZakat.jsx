@@ -56,43 +56,50 @@ const FormZakat = (props) => {
     },
     withCredentials: true,
   });
+const checkTransactionStatus = async (data) => {
+  try {
+    const response = await axios.post(`http://localhost:8000/api/payment/notification`, data);
+    return response;
+  } catch (error) {
+    console.error("Gagal cek status:", error);
+  }
+};
 
   const formik = useFormik({
     initialValues: {
-      nik: "",
-      nama: "Anonimous",
-      jml_donasi: "",
+      nominal: 0,
+      nama_donatur: "Anonymous",
+      nik: null,
       tipe_zakat: "PROFESI",
+      id: null,
     },
     onSubmit: async (values) => {
-      if (values.jml_donasi == null) {
-        swal({
-          title: "GAGAL!",
-          text: "Data donasi harus diisi!",
-          icon: "warning",
-        });
-      }
-      const csrf = await http.get("/sanctum/csrf-cookie");
-      console.log("csrf =", csrf);
-      await http
-        .post("http://localhost:8000/api/zakatAjax", values)
-        .then(
-          (response) => console.log(response),
-          swal({
-            title: "Sukses!",
-            text: "Terimakasih sudah berdonasi!",
-            icon: "success",
-          })
-        )
-        .catch((error) =>
-          swal({
-            title: "GAGAL!",
-            text: "Data donasi harus diisi!",
-            icon: "warning",
-          })
-        );
+      const response = await axios.post("http://localhost:8000/api/payment/", values);
+        // setTrigger(true)
+        
+        const snapToken = response.data.token;
+        console.log('Response:',snapToken);
+
+      window.snap.pay(snapToken, {
+        onSuccess: function (result) {
+          alert('Pembayaran berhasil!');
+          checkTransactionStatus(result);
+        },
+        onPending: function (result) {
+          alert('Menunggu pembayaran...');
+          checkTransactionStatus(result);
+        },
+        onError: function (result) {
+          alert('Pembayaran gagal!');
+          checkTransactionStatus(result);
+        },
+        onClose: function () {
+          alert('Kamu belum menyelesaikan pembayaran!');
+        }
+      });
     },
   });
+
 
   const handleError = () => {
     if (zakat == null) {
@@ -183,22 +190,22 @@ const FormZakat = (props) => {
               type="text"
               placeholder="Masukan nama anda"
               className="inpZkt"
-              name="nama"
+              name="nama_donatur"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.nama}
+              value={formik.values.nama_donatur}
             />
             <label htmlFor="" className="label">
               Jumlah zakat Profesi yang anda bayar
             </label>
             <input
               type="number"
-              name="jml_donasi"
+              name="nominal"
               placeholder="Rp. 0"
               ref={inputRef}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.jml_donasi}
+              value={formik.values.nominal}
               // value={
               //   bulan === 0
               //     ? null
