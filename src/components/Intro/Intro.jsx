@@ -19,7 +19,7 @@ const Intro = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/heroAjax")
+      .get("http://localhost:8000/api/heroAjax")
       .then((res) => {
         setHeroes(res.data.data);
       })

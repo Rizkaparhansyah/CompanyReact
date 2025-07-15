@@ -34,7 +34,7 @@ const ZakatProfesi = (props) => {
   };
   useEffect(async () => {
     await axios
-      .get("http://localhost:8000/zakatAjax") // Ganti URL sesuai dengan API Anda
+      .get("http://localhost:8000/api/zakatAjax") // Ganti URL sesuai dengan API Anda
       .then((response) => {
         setData(response.data.data);
       })

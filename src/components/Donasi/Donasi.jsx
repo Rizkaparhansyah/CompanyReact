@@ -21,7 +21,7 @@ const Donasi = () => {
   
 
   useEffect(()=>{
-    fetch("http://localhost:8000/campignAjax/" + newId + "/edit")
+    fetch("http://localhost:8000/api/campignAjax/" + newId + "/edit")
           .then((response) => response.json())
           .then((data) => {
             setTest(data.result);

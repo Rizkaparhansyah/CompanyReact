@@ -13,7 +13,7 @@ const Portfolio = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/beritaAjax") // Ganti URL sesuai dengan API Anda
+      .get("http://localhost:8000/api/beritaAjax") // Ganti URL sesuai dengan API Anda
       .then((response) => {
         setBerita(response.data.data);
       })

@@ -11,7 +11,7 @@ function AppRouter() {
   const [ambil, setAmbil] = useState();
   useEffect(async () => {
     await axios
-      .get("http://localhost:8000/campignAjax") // Ganti URL sesuai dengan API Anda
+      .get("http://localhost:8000/api/campignAjax") // Ganti URL sesuai dengan API Anda
       .then((response) => {
         setAmbil(response.data.data);
       })

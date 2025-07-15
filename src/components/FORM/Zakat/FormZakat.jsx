@@ -41,7 +41,7 @@ const FormZakat = (props) => {
   };
   useEffect(() => {
     axios
-      .get("http://localhost:8000/zakatAjax") // Ganti URL sesuai dengan API Anda
+      .get("http://localhost:8000/api/zakatAjax") // Ganti URL sesuai dengan API Anda
       .then((response) => {
         setData(response.data.data);
       })
@@ -54,7 +54,7 @@ const FormZakat = (props) => {
     headers: {
       "X-Requested-With": "XMLHttpRequest",
     },
-    withCredentials: true,
+    withCredentials: false,
   });
 const checkTransactionStatus = async (data) => {
   try {

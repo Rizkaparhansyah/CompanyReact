@@ -19,7 +19,7 @@ const Testimonial = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/inspirasiAjax")
+      .get("http://localhost:8000/api/inspirasiAjax")
       .then((res) => {
         setInspirasi(res?.data?.data[0]);
         setInspirasi1(res?.data?.data[1]);

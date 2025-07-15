@@ -16,7 +16,7 @@ const Services = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/servicesAjax")
+      .get("http://localhost:8000/api/servicesAjax")
       .then((res) => {
         setServices(res.data.data[0]);
         setServices1(res.data.data[1]);
@@ -33,7 +33,7 @@ const Services = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/servicesBrandAjax")
+      .get("http://localhost:8000/api/servicesBrandAjax")
       .then((res) => {
         setServiceBrand(res.data.data[0]);
       })
