@@ -10,12 +10,11 @@ import ZakatProfesi from "../ZakatProfesi";
 import { useFormik } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
+import { API } from "../../../api/route";
 
 Modal.setAppElement("#root");
 const FormZakat = (props) => {
-  const handleClick = (e) => {
-    setZakat(e.target.value);
-  };
+ 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   function openModal() {
@@ -32,49 +31,20 @@ const FormZakat = (props) => {
   const [data, setData] = useState();
   const [zakat, setZakat] = useState();
   const [kon, setKon] = useState();
-
-  const handleBulanan = (e) => {
-    setBulan(e.target.value);
-  };
-  const handleBonus = (e) => {
-    setBonus(e.target.value);
-  };
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/zakatAjax") // Ganti URL sesuai dengan API Anda
-      .then((response) => {
-        setData(response.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-  const http = axios.create({
-    baseURL: "http://localhost:8000",
-    headers: {
-      "X-Requested-With": "XMLHttpRequest",
-    },
-    withCredentials: false,
-  });
-const checkTransactionStatus = async (data) => {
-  try {
-    const response = await axios.post(`http://localhost:8000/api/payment/notification`, data);
-    return response;
-  } catch (error) {
-    console.error("Gagal cek status:", error);
-  }
-};
+  const categories = ['PROFESI', 'PERDAGANGAN', 'SIMPANAN', 'EMAS'];
+  const [selected, setSelected] = useState(null);
+  const [triger, setTrigger] = useState(false);
 
   const formik = useFormik({
     initialValues: {
+      tipe_zakat: 'PROFESI',
       nominal: 0,
       nama_donatur: "Anonymous",
       nik: null,
-      tipe_zakat: "PROFESI",
       id: null,
     },
     onSubmit: async (values) => {
-      const response = await axios.post("http://localhost:8000/api/payment/", values);
+      const response = await axios.post(`${API}/api/payment/`, values);
         // setTrigger(true)
         
         const snapToken = response.data.token;
@@ -101,6 +71,31 @@ const checkTransactionStatus = async (data) => {
   });
 
 
+  const handleClick = (index, val) => {
+    console.log('val', val)
+    setSelected(index);
+    formik.setFieldValue('tipe_zakat', val);
+  };
+  useEffect(() => {
+    axios
+      .get(`${API}/api/zakatAjax`) // Ganti URL sesuai dengan API Anda
+      .then((response) => {
+        setData(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [triger]);
+const checkTransactionStatus = async (data) => {
+  setTrigger(!triger)
+  try {
+    const response = await axios.post(`${API}/api/payment/notification`, data);
+    return response;
+  } catch (error) {
+    console.error("Gagal cek status:", error);
+  }
+};
+
   const handleError = () => {
     if (zakat == null) {
     }
@@ -113,34 +108,19 @@ const checkTransactionStatus = async (data) => {
           <div className="judul">ZAKAT</div>
           <div className="underline"></div>
           <div className="category-zakat">
-            <input
-              readOnly
-              className="pick-category"
-              active
-              value="PROFESI"
-              onClick={handleClick}
-            />
-            <input
-              readOnly
-              className="pick-category"
-              value="PERDAGANGAN"
-              onClick={handleClick}
-            />
-            <input
-              readOnly
-              className="pick-category"
-              value="SIMPANAN"
-              onClick={handleClick}
-            />
-            <input
-              readOnly
-              className="pick-category"
-              value="EMAS"
-              onClick={handleClick}
-            />
+             {categories.map((category, index) => (
+            <div
+              key={index}
+              className={`pick-category ${selected === index ? 'active' : ''}`}
+              onClick={() => handleClick(index, category)}
+            >
+              {category}
+            </div>
+          ))}
+          
           </div>
 
-          <Collapsible
+          {/* <Collapsible
             trigger={
               <div className="label-c ">
                 <label htmlFor="" className="kalkulate">
@@ -169,7 +149,7 @@ const checkTransactionStatus = async (data) => {
                 <input type="number" noSpin onChange={handleBonus} />
               </div>
             </div>
-          </Collapsible>
+          </Collapsible> */}
           <div className="input-zakat ">
             <label htmlFor="" className="label">
               NIK
@@ -318,20 +298,19 @@ const checkTransactionStatus = async (data) => {
             trigger={
               <div className="btn-donatur">
                 <img src={grup} alt="" className="icon-donatur" />
-                <label htmlFor="">Donatur Zakat Profesi ()</label>
+                <label htmlFor="">Donatur Zakat ({data?.length}) </label>
               </div>
             }
           >
             {data &&
-              data.map((datas) => (
-                <div className="card-donatur">
+              data.map((datas, i) => (
+                <div className="card-donatur" key={i}>
                   <img src={user} alt="" className="poto" />
                   <div className="profile">
-                    <label htmlFor="">{datas.nama_donatur}</label>
+                    <label htmlFor="">{datas.nama_donatur} - {datas.tipe_zakat} </label>
                     <label htmlFor="">
                       {new Date(datas.created_at).getDate()}
-                      {"-"}
-                      {new Date(datas.created_at).getDay() + 1}
+                      
                       {"-"}
                       {new Date(datas.created_at).getMonth() + 1}
                       {"-"}
@@ -339,7 +318,7 @@ const checkTransactionStatus = async (data) => {
                     </label>
                   </div>
                   <div className="jml-donasi">
-                    <div className="done">Rp.{datas.jml_donasi}</div>
+                    <div className="done">Rp.{datas.nominal}</div>
                   </div>
                 </div>
               ))}

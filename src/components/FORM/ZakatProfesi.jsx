@@ -9,6 +9,7 @@ import user from "../../img/user.png";
 import * as Yup from "yup";
 import axios from "axios";
 import { useFormik } from "formik";
+import { API } from "../../api/route";
 
 const ZakatProfesi = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -34,17 +35,17 @@ const ZakatProfesi = (props) => {
   };
   useEffect(async () => {
     await axios
-      .get("http://localhost:8000/api/zakatAjax") // Ganti URL sesuai dengan API Anda
+      .get(`${API}/api/zakatAjax`) // Ganti URL sesuai dengan API Anda
       .then((response) => {
         setData(response.data.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  });
+  }, []);
 
   const http = axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: API,
     headers: {
       "X-Requested-With": "XMLHttpRequest",
     },
@@ -246,7 +247,7 @@ const ZakatProfesi = (props) => {
           trigger={
             <div className="btn-donatur">
               <img src={grup} alt="" className="icon-donatur" />
-              <label htmlFor="">Donatur Zakat Profesi ({data.length})</label>
+              <label htmlFor="">Donatur Zakat ({data.length})</label>
             </div>
           }
         >
@@ -256,10 +257,10 @@ const ZakatProfesi = (props) => {
                 <img src={user} alt="" className="poto" key={index} />
                 <div className="profile">
                   <label htmlFor="">{datas.nama_donatur}</label>
-                  <label htmlFor="">Minggu,15 April 2023</label>
+                  {/* <label htmlFor="">Minggu,15 April 2023</label> */}
                 </div>
                 <div className="jml-donasi">
-                  <div className="done">Rp.{datas.jml_donasi}</div>
+                  <div className="done">Rp.{datas.nominal}</div>
                 </div>
               </div>
             ))}

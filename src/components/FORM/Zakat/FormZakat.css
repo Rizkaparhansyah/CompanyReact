@@ -36,7 +36,7 @@
     margin-bottom: 1em;
 
 }
-.pick-category:focus{
+.pick-category.active {
     background-color: var(--primary);
     color: #fff;
 }

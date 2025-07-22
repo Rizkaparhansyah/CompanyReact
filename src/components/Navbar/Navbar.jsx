@@ -3,13 +3,14 @@ import Toggle from "../Toggle/Toggle";
 import "./Navbar.css";
 import { Link } from "react-scroll";
 import axios from "axios";
+import { API } from "../../api/route";
 const Navbar = () => {
   // fetch data
   const [heroes, setHeroes] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/heroAjax")
+      .get(`${API}/api/heroAjax`)
       .then((res) => {
         setHeroes(res.data.data);
       })

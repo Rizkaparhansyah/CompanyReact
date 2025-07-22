@@ -5,13 +5,14 @@ import Donasi from "../Donasi/Donasi";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import axios from "axios";
 import FormZakat from "../FORM/Zakat/FormZakat";
+import { API } from "../../api/route";
 
 function AppRouter() {
   const [data, setData] = useState();
   const [ambil, setAmbil] = useState();
   useEffect(async () => {
     await axios
-      .get("http://localhost:8000/api/campignAjax") // Ganti URL sesuai dengan API Anda
+      .get(`${API}/api/campignAjax`) // Ganti URL sesuai dengan API Anda
       .then((response) => {
         setAmbil(response.data.data);
       })

@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import { themeContext } from "../../Context";
 import axios from "axios";
 import swal from "sweetalert";
+import { API } from "../../api/route";
 const Contact = () => {
   const theme = useContext(themeContext);
   const darkMode = theme.state.darkMode;
@@ -38,7 +39,7 @@ const Contact = () => {
       const csrf = await http.get("/sanctum/csrf-cookie");
       console.log("csrf =", csrf);
       http
-        .post("http://localhost:8000/api/messageAjax", values)
+        .post(`${API}/api/messageAjax`, values)
         .then(
           (response) =>
             swal({

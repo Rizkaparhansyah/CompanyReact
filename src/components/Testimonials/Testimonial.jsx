@@ -10,6 +10,7 @@ import profilePic2 from "../../img/BT-LOGO.png";
 import profilePic3 from "../../img/BT-LOGO.png";
 import profilePic4 from "../../img/BT-LOGO.png";
 import axios from "axios";
+import { API } from "../../api/route";
 
 const Testimonial = () => {
   const [inspirasi, setInspirasi] = useState([]);
@@ -19,7 +20,7 @@ const Testimonial = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/inspirasiAjax")
+      .get(`${API}/api/inspirasiAjax`)
       .then((res) => {
         setInspirasi(res?.data?.data[0]);
         setInspirasi1(res?.data?.data[1]);
@@ -62,16 +63,16 @@ const Testimonial = () => {
       </div>
       <div className="container">
         <div className="container1">
-          <img src={`http://localhost:8000/storage/images/${encodeURI(inspirasi?.image_inspirasi)}`} className="sec1" alt="" srcSet="" />
+          <img src={`${API}/storage/images/${encodeURI(inspirasi?.image_inspirasi)}`} className="sec1" alt="" srcSet="" />
           <div className="sec2">
             <p>{inspirasi?.description_inspirasi}</p>
           </div>
         </div>
         <div className="container2">
           <div className="container123">
-            <img src={`http://localhost:8000/storage/images/${encodeURI(inspirasi1?.image_inspirasi)}`} className="sec10" />
-            <img src={`http://localhost:8000/storage/images/${encodeURI(inspirasi2?.image_inspirasi)}`} className="sec20" />
-            <img src={`http://localhost:8000/storage/images/${encodeURI(inspirasi3?.image_inspirasi)}`} className="sec30" />
+            <img src={`${API}/storage/images/${encodeURI(inspirasi1?.image_inspirasi)}`} className="sec10" />
+            <img src={`${API}/storage/images/${encodeURI(inspirasi2?.image_inspirasi)}`} className="sec20" />
+            <img src={`${API}/storage/images/${encodeURI(inspirasi3?.image_inspirasi)}`} className="sec30" />
 
             <div className="sec40">
               <p>{inspirasi1?.description_inspirasi}</p>

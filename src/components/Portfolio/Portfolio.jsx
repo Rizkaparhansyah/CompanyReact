@@ -5,6 +5,7 @@ import "swiper/css";
 import Sidebar from "../../img/BT-LOGO.png";
 import { themeContext } from "../../Context";
 import axios from "axios";
+import { API } from "../../api/route";
 
 const Portfolio = () => {
   // fetch data service brand
@@ -13,7 +14,7 @@ const Portfolio = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/beritaAjax") // Ganti URL sesuai dengan API Anda
+      .get(`${API}/api/beritaAjax`) // Ganti URL sesuai dengan API Anda
       .then((response) => {
         setBerita(response.data.data);
       })
@@ -38,7 +39,7 @@ const Portfolio = () => {
       >
         {berita.map((data, index) => (
           <SwiperSlide key={index}>
-            <img src={`http://localhost:8000/storage/images/${encodeURI(data.image)}`} alt="Image" />
+            <img src={`${API}/storage/images/${encodeURI(data.image)}`} alt="Image" />
             <p className="berita">{data.description}</p>
           </SwiperSlide>
         ))}

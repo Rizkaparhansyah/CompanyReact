@@ -6,10 +6,11 @@ import { useFormik } from "formik";
 import { Link, Redirect } from "react-router-dom";
 import swal from "sweetalert";
 import { QRCodeCanvas } from "qrcode.react";
+import { API } from "../../api/route";
 
 const Donasi = () => {
   const [trigger, setTrigger] = useState(false);
-  const [inp, setInp] = useState();
+  const [inp, setInp] = useState(0);
   const [name, handleName] = useState("Anonymouse");
   // get id
   const sId = window.location.pathname;
@@ -21,7 +22,7 @@ const Donasi = () => {
   
 
   useEffect(()=>{
-    fetch("http://localhost:8000/api/campignAjax/" + newId + "/edit")
+    fetch(`${API}/api/campignAjax/${newId}/edit`)
           .then((response) => response.json())
           .then((data) => {
             setTest(data.result);
@@ -34,12 +35,13 @@ const Donasi = () => {
     setData(target.value);
   }
   function handleInp({ target }) {
+    console.log('target.value', target.value)
     setInp(target.value);
   }
 
 const checkTransactionStatus = async (data) => {
   try {
-    const response = await axios.post(`http://localhost:8000/api/payment/notification`, data);
+    const response = await axios.post(`${API}/api/payment/notification`, data);
     setTrigger(response)
     return response;
   } catch (error) {
@@ -56,9 +58,9 @@ const handlePay = async (e) => {
     const put = parseInt(test.terkumpul) + parseInt(isNaN(inp) ?? 0);
     // console.log('put', name.target.value)
     // console.log('put', terkumpul)
-    const response = await axios.post("http://localhost:8000/api/payment/", {
+    const response = await axios.post(`${API}/api/payment/`, {
           terkumpul: terkumpul ? terkumpul : put,
-          nominal: parseInt(datas) || parseInt(isNaN(inp) ?? 0),
+          nominal: parseInt(datas) || parseInt(inp),
           nama_donatur: name,
           id: newId,
         });
@@ -90,45 +92,6 @@ const handlePay = async (e) => {
     }
   };
 
-  // //handleSubmit 2
-  // const formik = useFormik({
-  //   onSubmit: async (values) => {
-  //     const terkumpul = parseInt(test.terkumpul) + parseInt(datas);
-  //     const put = parseInt(test.terkumpul) + parseInt(inp);
-  //     await http.get("/sanctum/csrf-cookie");
-  //     await http
-  //       .put("http://localhost:8000/api/campignAjax/" + newId, {
-  //         terkumpul: terkumpul ? terkumpul : put,
-  //         nama_donatur: name,
-        
-  //       })
-  //       .then((response) => {
-  //         swal({
-  //           title: "Terimakasih!",
-  //           text: "Anda telah berdonasi, semoga teganti dengan lebih",
-  //           icon: "success",
-  //         }).then((willDelete) => {
-  //           console.log('willDelete', willDelete)
-  //           if (willDelete) {
-  //             // window.location.href = "/donasi/" + newId;
-  //           }
-  //         });
-  //       })
-  //       .catch((error) => {
-  //         swal({
-  //           title: "Gagal!",
-  //           text: "Maaf terjadi kesalahan!",
-  //           icon: "warning",
-  //         }).then((willDelete) => {
-  //           console.log('willDelete', willDelete)
-  //           if (willDelete) {
-  //             // window.location.href = "/donasi/" + newId;
-  //           }
-  //         });
-  //       });
-  //   },
-  // });
-  // value form
   const donasi = [
     {
       id: 1,

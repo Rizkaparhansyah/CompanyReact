@@ -10,6 +10,7 @@ import { Link } from "react-scroll";
 import Donasi from "../Donasi/Donasi";
 import { useContext } from "react";
 import { themeContext } from "../../Context";
+import { API } from "../../api/route";
 
 const Campign = () => {
   const href1 = document.getElementById("href");
@@ -18,7 +19,7 @@ const Campign = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/campignAjax") // Ganti URL sesuai dengan API Anda
+      .get(`${API}/api/campignAjax`) // Ganti URL sesuai dengan API Anda
       .then((response) => {
         setData(response.data.data);
       })
@@ -60,7 +61,7 @@ const Campign = () => {
               <div class="__cont" key={datas.id}>
                 <div class="__card">
                   <div class="head-card">
-                    <img src={`http://localhost:8000/storage/images/${encodeURI(datas.image)}`} alt="" />
+                    <img src={`${API}/storage/images/${encodeURI(datas.image)}`} alt="" />
                   </div>
                   <div class="body-card">
                     <h1>{datas.keluhan}</h1>
@@ -116,7 +117,7 @@ const Campign = () => {
                       </a>
                     )}
                     <a
-                      href={`https://api.whatsapp.com/send?text=http://localhost:8000/donasi/${datas.id}`}
+                      href={`https://api.whatsapp.com/send?text=${API}/donasi/${datas.id}`}
                       data-action="share/whatsapp/share"
                       className="btn-share"
                       target="_blank"

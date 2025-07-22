@@ -7,6 +7,7 @@ import Humble from "../../img/humble.png";
 import { themeContext } from "../../Context";
 import { motion } from "framer-motion";
 import axios from "axios";
+import { API } from "../../api/route";
 
 const Services = () => {
   // fetch data services card
@@ -16,7 +17,7 @@ const Services = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/servicesAjax")
+      .get(`${API}/api/servicesAjax`)
       .then((res) => {
         setServices(res.data.data[0]);
         setServices1(res.data.data[1]);
@@ -33,7 +34,7 @@ const Services = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/servicesBrandAjax")
+      .get(`${API}/api/servicesBrandAjax`)
       .then((res) => {
         setServiceBrand(res.data.data[0]);
       })

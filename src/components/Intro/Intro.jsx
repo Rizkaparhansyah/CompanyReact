@@ -13,13 +13,14 @@ import { motion } from "framer-motion";
 import { Link } from "react-scroll";
 import axios from "axios";
 import whatsapp from "../../img/wa.png";
+import { API } from "../../api/route";
 const Intro = () => {
   // fetch data
   const [heroes, setHeroes] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/heroAjax")
+      .get(`${API}/api/heroAjax`)
       .then((res) => {
         setHeroes(res.data.data);
       })
