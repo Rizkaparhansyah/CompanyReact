@@ -58,6 +58,8 @@ const handlePay = async (e) => {
     const put = parseInt(test.terkumpul) + parseInt(isNaN(inp) ?? 0);
     // console.log('put', name.target.value)
     // console.log('put', terkumpul)
+    axios.defaults.withCredentials = true;
+
     const response = await axios.post(`${API}/api/payment/`, {
           terkumpul: terkumpul ? terkumpul : put,
           nominal: parseInt(datas) || parseInt(inp),

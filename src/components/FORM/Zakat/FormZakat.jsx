@@ -44,6 +44,8 @@ const FormZakat = (props) => {
       id: null,
     },
     onSubmit: async (values) => {
+      axios.defaults.withCredentials = true;
+
       const response = await axios.post(`${API}/api/payment/`, values);
         // setTrigger(true)
         
