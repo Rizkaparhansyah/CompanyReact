@@ -39,7 +39,7 @@ const Navbar = () => {
             </li>
             <li>
               <Link to="category" spy={true} smooth={true}>
-                Category
+                Zakat
               </Link>
             </li>
             <li>
