@@ -12,7 +12,7 @@ const Contact = () => {
 
   const [response, setResponse] = useState("");
   const http = axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: "https://company.kilauindonesia.org",
     headers: {
       "X-Requested-With": "XMLHttpRequest",
     },
