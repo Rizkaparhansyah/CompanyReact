@@ -46,7 +46,7 @@ const FormZakat = (props) => {
     onSubmit: async (values) => {
       axios.defaults.withCredentials = true;
 
-      const response = await axios.post(`${API}/api/payment/`, values);
+      const response = await axios.post(`${API}/api/payment`, values);
         // setTrigger(true)
         
         const snapToken = response.data.token;
