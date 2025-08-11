@@ -60,7 +60,7 @@ const handlePay = async (e) => {
     // console.log('put', terkumpul)
     axios.defaults.withCredentials = true;
 
-    const response = await axios.post(`${API}/api/payment/`, {
+    const response = await axios.post(`${API}/api/payment`, {
           terkumpul: terkumpul ? terkumpul : put,
           nominal: parseInt(datas) || parseInt(inp),
           nama_donatur: name,
