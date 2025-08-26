@@ -32,7 +32,7 @@ const Contact = () => {
         .email("Email yang anda masukan tidak valid")
         .required("Form tidak boleh kosong"),
       pesan: Yup.string()
-        .max(400, "Maaf pesan maximal 400 karakter karakter")
+        .max(400, "Maaf pesan maximal 400 karakter")
         .required("Form tidak boleh kosong"),
     }),
     onSubmit: async (values) => {
@@ -42,6 +42,7 @@ const Contact = () => {
         .post(`${API}/api/messageAjax`, values)
         .then(
           (response) =>
+            location.reload(),
             swal({
               title: "Sukses!",
               text: "Terimakasih sudah sudah memberikan feedback!",

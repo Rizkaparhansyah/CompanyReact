@@ -59,8 +59,8 @@ const Services = () => {
       <div className="awesome">
         {/* dark mode */}
         <span style={{ color: darkMode ? "white" : "" }}>My Awesome</span>
-        <span>{serviceBrand?.service}</span>
-        <span>{serviceBrand?.description}</span>
+        <span>Services</span>
+        {/* <span>{serviceBrand?.description}</span> */}
 
         <div className="blur s-blur1" style={{ background: "#ABF1FF94" }}></div>
       </div>
@@ -74,7 +74,7 @@ const Services = () => {
             emoji={HeartEmoji}
             heading={services?.name_services}
             detail={services?.description_services}
-            link={services?.link_services}
+            // link={services?.link_services}
           />
         </motion.div>
         {/* second card */}
@@ -85,7 +85,7 @@ const Services = () => {
         >
           <Card
             emoji={Glasses}
-            link={services1?.link_services}
+            // link={services1?.link_services}
             heading={services1?.name_services}
             detail={services1?.description_services}
           />
@@ -98,7 +98,7 @@ const Services = () => {
         >
           <Card
             emoji={Humble}
-            link={services2?.link_services}
+            // link={services2?.link_services}
             heading={services2?.name_services}
             detail={services2?.description_services}
             color="rgba(252, 166, 31, 0.45)"

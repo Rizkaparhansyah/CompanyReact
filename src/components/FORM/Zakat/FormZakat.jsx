@@ -11,6 +11,7 @@ import { useFormik } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
 import { API } from "../../../api/route";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 Modal.setAppElement("#root");
 const FormZakat = (props) => {
@@ -71,7 +72,11 @@ const FormZakat = (props) => {
       });
     },
   });
+  const navigate = useHistory();
 
+  const handleBack = () => {
+    history.goBack(); // Sama seperti navigate(-1)
+  };
 
   const handleClick = (index, val) => {
     console.log('val', val)
@@ -107,7 +112,7 @@ const checkTransactionStatus = async (data) => {
     <div className="conta">
       <div className="_card">
         <form onSubmit={formik.handleSubmit}>
-          <div className="judul">ZAKAT</div>
+          <div className="judul"  onClick={handleBack}> {'<  '} ZAKAT</div>
           <div className="underline"></div>
           <div className="category-zakat">
              {categories.map((category, index) => (
@@ -153,7 +158,7 @@ const checkTransactionStatus = async (data) => {
             </div>
           </Collapsible> */}
           <div className="input-zakat ">
-            <label htmlFor="" className="label">
+            {/* <label htmlFor="" className="label">
               NIK
             </label>
             <input
@@ -164,7 +169,7 @@ const checkTransactionStatus = async (data) => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.nik}
-            />
+            /> */}
             <label htmlFor="" className="label">
               Nama
             </label>
@@ -295,7 +300,7 @@ const checkTransactionStatus = async (data) => {
             BAYAR ZAKAT
           </button>
         </form>
-        <div className="donate-center">
+        {/* <div className="donate-center">
           <Collapsible
             trigger={
               <div className="btn-donatur">
@@ -325,7 +330,7 @@ const checkTransactionStatus = async (data) => {
                 </div>
               ))}
           </Collapsible>
-        </div>
+        </div> */}
       </div>
     </div>
   );

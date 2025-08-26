@@ -46,7 +46,7 @@ const Campign = () => {
         style={{ color: darkMode ? "black" : "" }}
         className="campign-title"
       >
-        CAMPIGN
+        Campaign
       </span>
 
       <Swiper

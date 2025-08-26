@@ -26,7 +26,7 @@ const Navbar = () => {
         {heroes.map((hero) => (
           <div className="n-name">{hero.name_brand}</div>
         ))}
-        <Toggle />
+        {/* <Toggle /> */}
       </div>
       {/* right */}
       <div className="n-right">
@@ -44,12 +44,12 @@ const Navbar = () => {
             </li>
             <li>
               <Link to="campign" spy={true} smooth={true}>
-                Campign
+                Campaign
               </Link>
             </li>
             <li>
               <Link to="services" spy={true} smooth={true}>
-                Serivces
+                Services
               </Link>
             </li>
 
