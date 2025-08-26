@@ -117,7 +117,7 @@ const Campign = () => {
                       </a>
                     )}
                     <a
-                      href={`https://api.whatsapp.com/send?text=${API}/donasi/${datas.id}`}
+                      href={`https://api.whatsapp.com/send?text=https://company-react-green.vercel.app/donasi/${datas.id}`}
                       data-action="share/whatsapp/share"
                       className="btn-share"
                       target="_blank"
