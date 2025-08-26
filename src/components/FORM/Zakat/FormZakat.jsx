@@ -75,7 +75,7 @@ const FormZakat = (props) => {
   const navigate = useHistory();
 
   const handleBack = () => {
-    history.goBack(); // Sama seperti navigate(-1)
+    navigate.goBack(); // Sama seperti navigate(-1)
   };
 
   const handleClick = (index, val) => {
@@ -112,8 +112,13 @@ const checkTransactionStatus = async (data) => {
     <div className="conta">
       <div className="_card">
         <form onSubmit={formik.handleSubmit}>
-          <div className="judul"  onClick={handleBack}> {'<  '} ZAKAT</div>
-          <div className="underline"></div>
+            <div style={{padding:15, cursor: 'pointer', color: 'blue'}}  onClick={handleBack}>Kembali</div>
+          <div style={{justifyContent:'center',marginBottom:10, display:'flex', padding:15}}>
+            <div className="judul"> ZAKAT</div>
+            {/* <div className="judul"></div> */}
+
+          </div>
+          {/* <div className="underline"></div> */}
           <div className="category-zakat">
              {categories.map((category, index) => (
             <div
@@ -190,6 +195,11 @@ const checkTransactionStatus = async (data) => {
               name="nominal"
               placeholder="Rp. 0"
               ref={inputRef}
+               onInput={(e) => {
+                if (e.target.value.length > 11) {
+                  e.target.value = e.target.value.slice(0, 11);
+                }
+              }}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.nominal}

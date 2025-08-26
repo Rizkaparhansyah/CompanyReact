@@ -30,18 +30,18 @@ const Services = () => {
 
   // fetch data service brand
 
-  const [serviceBrand, setServiceBrand] = useState([]);
+  // const [serviceBrand, setServiceBrand] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get(`${API}/api/servicesBrandAjax`)
-      .then((res) => {
-        setServiceBrand(res.data.data[0]);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${API}/api/servicesBrandAjax`)
+  //     .then((res) => {
+  //       // setServiceBrand(res.data.data[0]);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // }, []);
 
   // context
   const theme = useContext(themeContext);

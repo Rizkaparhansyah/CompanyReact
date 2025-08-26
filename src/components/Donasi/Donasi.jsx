@@ -181,6 +181,11 @@ const handlePay = async (e) => {
             <input
               onChange={handleInp}
               type="number"
+              onInput={(e) => {
+                if (e.target.value.length > 11) {
+                  e.target.value = e.target.value.slice(0, 11);
+                }
+              }}
               className="btn-price-solo"
               placeholder="Contoh : Rp 50.000"
             />

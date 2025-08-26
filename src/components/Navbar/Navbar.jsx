@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Toggle from "../Toggle/Toggle";
+// import Toggle from "../Toggle/Toggle";
 import "./Navbar.css";
 import { Link } from "react-scroll";
 import axios from "axios";

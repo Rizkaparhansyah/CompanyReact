@@ -42,7 +42,7 @@ const Contact = () => {
         .post(`${API}/api/messageAjax`, values)
         .then(
           (response) =>
-            location.reload(),
+            window.location.reload(),
             swal({
               title: "Sukses!",
               text: "Terimakasih sudah sudah memberikan feedback!",
