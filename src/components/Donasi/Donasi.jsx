@@ -129,7 +129,7 @@ const handlePay = async (e) => {
   return (
     <div className="cont">
       <div className="__card-1">
-        <img src={img} alt="" />
+        <img src={`${API}/storage/images/${test?.image}`} alt="" />
         <div className="grid-text">
           <div className="desk" id="pro">{test?.keluhan}</div>
           <div className="desk" id="tes">Terkumpul: {new Intl.NumberFormat("id-ID", {
